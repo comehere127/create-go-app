@@ -69,7 +69,7 @@ brews:
       owner: comehere127
       name: homebrew-cga-tap
       branch: main
-      token: "{{ .Env.PUBLISHER_TOKEN }}"
+      token: "{{ .secrets.PUBLISHER_TOKEN }}"
       pull_request:
         enabled: true
       git:
