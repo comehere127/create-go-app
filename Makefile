@@ -1,16 +1,30 @@
-# A default Makefile for Create Go App project.
-# Author: Vic Shóstak <koddr.me@gmail.com> (https://github.com/koddr)
-# For more information, please visit https://github.com/comehere127/create-go-app
+.PHONY: clean lint security critic test install build release build-and-push-images delete-tag update-pkg-cache
 
-.PHONY: test run build
+clean:
+	rm -rf ./tmp ./tests
 
-BACKEND_PATH = $(PWD)/backend
+lint:
+	$(GOPATH)/bin/golangci-lint run ./...
 
-test:
-	@if [ -d "$(BACKEND_PATH)" ]; then cd $(BACKEND_PATH) && go test ./...; fi
+security:
+	$(GOPATH)/bin/gosec -quiet ./...
 
-run: test
-	@if [ -d "$(BACKEND_PATH)" ]; then cd $(BACKEND_PATH) && $(MAKE) run; fi
+critic:
+	$(GOPATH)/bin/gocritic check -enableAll ./...
+
+test: clean lint security critic
+	mkdir ./tests
+	go test -coverprofile=./tests/coverage.out ./...
+	go tool cover -func=./tests/coverage.out
+	rm -rf ./tests
+
+install: test
+	CGO_ENABLED=0 go build -ldflags="-s -w" -o $(GOPATH)/bin/cgapp ./cmd/cgapp/main.go
 
 build: test
-	@if [ -d "$(BACKEND_PATH)" ]; then cd $(BACKEND_PATH) && $(MAKE) build; fi
+	$(GOPATH)/bin/goreleaser --snapshot --skip-publish --rm-dist
+
+release: test
+	git tag -a v$(VERSION) -m "$(VERSION)"
+	$(GOPATH)/bin/goreleaser --snapshot --skip-publish --rm-dist
+
