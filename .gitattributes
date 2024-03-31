@@ -1,0 +1,6 @@
+# A default .gitattributes for Create Go App project.
+# Author: Vic Shóstak <koddr.me@gmail.com> (https://github.com/koddr)
+# For more information, please visit https://github.com/comehere127/create-go-app
+
+go.sum merge=union
+*.go text eol=lf
