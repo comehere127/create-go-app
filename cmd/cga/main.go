@@ -1,9 +1,7 @@
 /*
 Package main includes call for the Create Go App CLI.
 
-Create a new production-ready project with backend (Golang),
-frontend (JavaScript, TypeScript) and deploy automation
-(Ansible, Docker) by running one CLI command.
+Create a new production-ready project with backend (Golang) by running CLI command.
 
 Focus on writing your code and thinking of the business logic!
 The Create Go App CLI will take care of the rest.

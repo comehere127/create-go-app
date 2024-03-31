@@ -26,7 +26,6 @@ jobs:
 
       - name: Run "go-critic/go-critic" for code linting
         run: go run github.com/go-critic/go-critic/cmd/gocritic@latest check -enableAll ./...
-
   goreleaser:
     strategy:
       matrix:
