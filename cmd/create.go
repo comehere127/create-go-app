@@ -17,11 +17,11 @@ import (
 
 func init() {
 	rootCmd.AddCommand(createCmd)
-	createCmd.Flags().BoolVarP(
-		&useCustomTemplate,
-		"template", "t", false,
-		"enables to use custom backend templates",
-	)
+	//createCmd.Flags().BoolVarP(
+	//	&useCustomTemplate,
+	//	"template", "t", false,
+	//	"enables to use custom backend templates",
+	//)
 }
 
 // createCmd represents the `create` command.
